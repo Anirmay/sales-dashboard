@@ -10,6 +10,11 @@ interface PieChartCardProps {
   records: SalesRecord[];
 }
 
+function formatSalesValue(value: number | string | undefined) {
+  const numericValue = typeof value === "number" ? value : Number(value ?? 0);
+  return `$${numericValue.toLocaleString()}`;
+}
+
 export function PieChartCard({ records }: PieChartCardProps) {
   return (
     <ChartCard title="Sales distribution" description="Review how each year contributes to total revenue.">
@@ -30,7 +35,7 @@ export function PieChartCard({ records }: PieChartCardProps) {
               <Cell key={`cell-${entry.year}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip formatter={(value: number) => [`$${value.toLocaleString()}`, "Sales"]} />
+          <Tooltip formatter={(value) => [formatSalesValue(value), "Sales"]} />
         </PieChart>
       </ResponsiveContainer>
     </ChartCard>

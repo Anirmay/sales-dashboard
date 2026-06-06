@@ -16,6 +16,11 @@ interface LineChartCardProps {
   records: SalesRecord[];
 }
 
+function formatSalesValue(value: number | string | undefined) {
+  const numericValue = typeof value === "number" ? value : Number(value ?? 0);
+  return `$${numericValue.toLocaleString()}`;
+}
+
 export function LineChartCard({ records }: LineChartCardProps) {
   return (
     <ChartCard title="Sales trend" description="Visualize the year-over-year trend with a smooth line chart.">
@@ -24,7 +29,7 @@ export function LineChartCard({ records }: LineChartCardProps) {
           <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
           <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{ fill: "#475569" }} />
           <YAxis tickLine={false} axisLine={false} tick={{ fill: "#475569" }} />
-          <Tooltip formatter={(value: number) => [`$${value.toLocaleString()}`, "Sales"]} />
+          <Tooltip formatter={(value) => [formatSalesValue(value), "Sales"]} />
           <Line type="monotone" dataKey="sales" stroke="#0ea5e9" strokeWidth={4} dot={{ r: 4 }} activeDot={{ r: 6 }} />
         </LineChart>
       </ResponsiveContainer>

@@ -16,6 +16,11 @@ interface BarChartCardProps {
   records: SalesRecord[];
 }
 
+function formatSalesValue(value: number | string | undefined) {
+  const numericValue = typeof value === "number" ? value : Number(value ?? 0);
+  return `$${numericValue.toLocaleString()}`;
+}
+
 export function BarChartCard({ records }: BarChartCardProps) {
   return (
     <ChartCard title="Yearly sales" description="Compare sales growth across three years using the bar chart.">
@@ -24,7 +29,7 @@ export function BarChartCard({ records }: BarChartCardProps) {
           <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
           <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{ fill: "#475569" }} />
           <YAxis tickLine={false} axisLine={false} tick={{ fill: "#475569" }} />
-          <Tooltip formatter={(value: number) => [`$${value.toLocaleString()}`, "Sales"]} />
+          <Tooltip formatter={(value) => [formatSalesValue(value), "Sales"]} />
           <Bar dataKey="sales" fill="#6366f1" radius={[12, 12, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>

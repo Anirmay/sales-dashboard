@@ -29,6 +29,7 @@ export function SalesDashboard() {
         <StatusMessage
           title="No results"
           description="No sales records match the current threshold. Adjust the minimum sales value to view chart data."
+          type="info"
         />
       </div>
     );

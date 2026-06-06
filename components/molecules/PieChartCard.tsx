@@ -10,7 +10,7 @@ interface PieChartCardProps {
   records: SalesRecord[];
 }
 
-function formatSalesValue(value: string | number | readonly (string | number)[] | undefined) {
+function formatSalesValue(value: unknown) {
   const numericValue = Array.isArray(value)
     ? Number(value[0] ?? 0)
     : Number(value ?? 0);
@@ -38,7 +38,7 @@ export function PieChartCard({ records }: PieChartCardProps) {
               <Cell key={`cell-${entry.year}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip formatter={(value: string | number | readonly (string | number)[] | undefined) => [formatSalesValue(value), "Sales"]} />
+          <Tooltip formatter={(value: unknown) => [formatSalesValue(value), "Sales"]} />
         </PieChart>
       </ResponsiveContainer>
     </ChartCard>

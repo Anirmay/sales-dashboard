@@ -9,7 +9,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import type { ValueType } from "recharts";
+import type { TooltipValueType } from "recharts";
 import { ChartCard } from "@/components/molecules/ChartCard";
 import type { SalesRecord } from "@/types/sales";
 
@@ -17,7 +17,7 @@ interface LineChartCardProps {
   records: SalesRecord[];
 }
 
-function formatSalesValue(value: ValueType | undefined) {
+function formatSalesValue(value: TooltipValueType | undefined) {
   const numericValue = Array.isArray(value)
     ? Number(value[0] ?? 0)
     : Number(value ?? 0);
@@ -33,7 +33,7 @@ export function LineChartCard({ records }: LineChartCardProps) {
           <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
           <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{ fill: "#475569" }} />
           <YAxis tickLine={false} axisLine={false} tick={{ fill: "#475569" }} />
-          <Tooltip formatter={(value: ValueType | undefined) => [formatSalesValue(value), "Sales"]} />
+          <Tooltip formatter={(value) => [formatSalesValue(value), "Sales"]} />
           <Line type="monotone" dataKey="sales" stroke="#0ea5e9" strokeWidth={4} dot={{ r: 4 }} activeDot={{ r: 6 }} />
         </LineChart>
       </ResponsiveContainer>

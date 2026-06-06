@@ -10,13 +10,15 @@ interface SalesChartsProps {
 }
 
 export function SalesCharts({ records }: SalesChartsProps) {
+  const validRecords = records ?? [];
+
   return (
     <div className="grid gap-6 xl:grid-cols-[1.6fr_1fr]">
       <div className="space-y-6">
-        <BarChartCard records={records} />
-        <PieChartCard records={records} />
+        <BarChartCard records={validRecords} />
+        <PieChartCard records={validRecords} />
       </div>
-      <LineChartCard records={records} />
+      <LineChartCard records={validRecords} />
     </div>
   );
 }

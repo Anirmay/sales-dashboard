@@ -12,7 +12,9 @@ function formatCurrency(value: number) {
 export function DashboardSummary({ records }: DashboardSummaryProps) {
   const totalSales = records.reduce((sum, record) => sum + record.sales, 0);
   const averageSales = records.length ? Math.round(totalSales / records.length) : 0;
-  const highestSalesYear = records.reduce((prev, current) => (current.sales > prev.sales ? current : prev), records[0]);
+  const highestSalesYear = records.length
+    ? records.reduce((prev, current) => (current.sales > prev.sales ? current : prev), records[0])
+    : { year: 0, sales: 0 };
 
   return (
     <div className="grid gap-4 md:grid-cols-3">

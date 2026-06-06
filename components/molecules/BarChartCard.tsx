@@ -16,8 +16,11 @@ interface BarChartCardProps {
   records: SalesRecord[];
 }
 
-function formatSalesValue(value: number | string | undefined) {
-  const numericValue = typeof value === "number" ? value : Number(value ?? 0);
+function formatSalesValue(value: unknown) {
+  const numericValue = Array.isArray(value)
+    ? Number(value[0] ?? 0)
+    : Number(value ?? 0);
+
   return `$${numericValue.toLocaleString()}`;
 }
 

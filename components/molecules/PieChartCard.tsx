@@ -1,7 +1,6 @@
 "use client";
 
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-import type { ValueType } from "recharts";
 import { ChartCard } from "@/components/molecules/ChartCard";
 import type { SalesRecord } from "@/types/sales";
 
@@ -11,7 +10,7 @@ interface PieChartCardProps {
   records: SalesRecord[];
 }
 
-function formatSalesValue(value: ValueType | undefined) {
+function formatSalesValue(value: string | number | readonly (string | number)[] | undefined) {
   const numericValue = Array.isArray(value)
     ? Number(value[0] ?? 0)
     : Number(value ?? 0);
@@ -39,7 +38,7 @@ export function PieChartCard({ records }: PieChartCardProps) {
               <Cell key={`cell-${entry.year}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip formatter={(value: ValueType | undefined) => [formatSalesValue(value), "Sales"]} />
+          <Tooltip formatter={(value: string | number | readonly (string | number)[] | undefined) => [formatSalesValue(value), "Sales"]} />
         </PieChart>
       </ResponsiveContainer>
     </ChartCard>

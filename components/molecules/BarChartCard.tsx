@@ -9,7 +9,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import type { ValueType } from "recharts";
 import { ChartCard } from "@/components/molecules/ChartCard";
 import type { SalesRecord } from "@/types/sales";
 
@@ -17,7 +16,7 @@ interface BarChartCardProps {
   records: SalesRecord[];
 }
 
-function formatSalesValue(value: ValueType | undefined) {
+function formatSalesValue(value: string | number | readonly (string | number)[] | undefined) {
   const numericValue = Array.isArray(value)
     ? Number(value[0] ?? 0)
     : Number(value ?? 0);
@@ -33,7 +32,7 @@ export function BarChartCard({ records }: BarChartCardProps) {
           <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
           <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{ fill: "#475569" }} />
           <YAxis tickLine={false} axisLine={false} tick={{ fill: "#475569" }} />
-          <Tooltip formatter={(value: ValueType | undefined) => [formatSalesValue(value), "Sales"]} />
+          <Tooltip formatter={(value: string | number | readonly (string | number)[] | undefined) => [formatSalesValue(value), "Sales"]} />
           <Bar dataKey="sales" fill="#6366f1" radius={[12, 12, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>

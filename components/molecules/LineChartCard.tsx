@@ -1,0 +1,33 @@
+"use client";
+
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { ChartCard } from "@/components/molecules/ChartCard";
+import type { SalesRecord } from "@/types/sales";
+
+interface LineChartCardProps {
+  records: SalesRecord[];
+}
+
+export function LineChartCard({ records }: LineChartCardProps) {
+  return (
+    <ChartCard title="Sales trend" description="Visualize the year-over-year trend with a smooth line chart.">
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={records} margin={{ top: 10, right: 18, left: -10, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+          <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{ fill: "#475569" }} />
+          <YAxis tickLine={false} axisLine={false} tick={{ fill: "#475569" }} />
+          <Tooltip formatter={(value: number) => [`$${value.toLocaleString()}`, "Sales"]} />
+          <Line type="monotone" dataKey="sales" stroke="#0ea5e9" strokeWidth={4} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+        </LineChart>
+      </ResponsiveContainer>
+    </ChartCard>
+  );
+}
